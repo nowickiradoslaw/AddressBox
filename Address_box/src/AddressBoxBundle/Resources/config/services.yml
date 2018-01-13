@@ -1,0 +1,4 @@
+services:
+#    address_box.example:
+#        class: AddressBoxBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

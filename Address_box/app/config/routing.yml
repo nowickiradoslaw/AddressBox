@@ -1,0 +1,8 @@
+address_box:
+    resource: "@AddressBoxBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
