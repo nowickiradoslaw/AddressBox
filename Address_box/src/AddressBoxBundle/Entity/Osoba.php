@@ -1,0 +1,249 @@
+<?php
+
+namespace AddressBoxBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Osoba
+ *
+ * @ORM\Table(name="osoba")
+ * @ORM\Entity(repositoryClass="AddressBoxBundle\Repository\OsobaRepository")
+ */
+class Osoba
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imie", type="string", length=255)
+     */
+    private $imie;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nazwisko", type="string", length=255)
+     */
+    private $nazwisko;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="opis", type="string", length=255)
+     */
+    private $opis;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="Adres", inversedBy="osoby")
+    * @ORM\JoinColumn(name="adres_id", referencedColumnName="id")
+    */
+    private $adres;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Telefon", mappedBy="osoba")
+    */
+    private $telefony;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Email", mappedBy="osoba")
+    */
+    private $emaile;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set imie
+     *
+     * @param string $imie
+     *
+     * @return Osoba
+     */
+    public function setImie($imie)
+    {
+        $this->imie = $imie;
+
+        return $this;
+    }
+
+    /**
+     * Get imie
+     *
+     * @return string
+     */
+    public function getImie()
+    {
+        return $this->imie;
+    }
+
+    /**
+     * Set nazwisko
+     *
+     * @param string $nazwisko
+     *
+     * @return Osoba
+     */
+    public function setNazwisko($nazwisko)
+    {
+        $this->nazwisko = $nazwisko;
+
+        return $this;
+    }
+
+    /**
+     * Get nazwisko
+     *
+     * @return string
+     */
+    public function getNazwisko()
+    {
+        return $this->nazwisko;
+    }
+
+    /**
+     * Set opis
+     *
+     * @param string $opis
+     *
+     * @return Osoba
+     */
+    public function setOpis($opis)
+    {
+        $this->opis = $opis;
+
+        return $this;
+    }
+
+    /**
+     * Get opis
+     *
+     * @return string
+     */
+    public function getOpis()
+    {
+        return $this->opis;
+    }
+
+    /**
+     * Set adres
+     *
+     * @param \AddressBoxBundle\Entity\Adres $adres
+     *
+     * @return Osoba
+     */
+    public function setAdres(\AddressBoxBundle\Entity\Adres $adres = null)
+    {
+        $this->adres = $adres;
+
+        return $this;
+    }
+
+    /**
+     * Get adres
+     *
+     * @return \AddressBoxBundle\Entity\Adres
+     */
+    public function getAdres()
+    {
+        return $this->adres;
+    }
+
+
+    /**
+     * Add telefony
+     *
+     * @param \AddressBoxBundle\Entity\Telefon $telefony
+     *
+     * @return Osoba
+     */
+    public function addTelefony(\AddressBoxBundle\Entity\Telefon $telefony)
+    {
+        $this->telefony[] = $telefony;
+
+        return $this;
+    }
+
+    /**
+     * Remove telefony
+     *
+     * @param \AddressBoxBundle\Entity\Telefon $telefony
+     */
+    public function removeTelefony(\AddressBoxBundle\Entity\Telefon $telefony)
+    {
+        $this->telefony->removeElement($telefony);
+    }
+
+    /**
+     * Get telefony
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTelefony()
+    {
+        return $this->telefony;
+    }
+
+    /**
+     * Add emaile
+     *
+     * @param \AddressBoxBundle\Entity\Email $emaile
+     *
+     * @return Osoba
+     */
+    public function addEmaile(\AddressBoxBundle\Entity\Email $emaile)
+    {
+        $this->emaile[] = $emaile;
+
+        return $this;
+    }
+
+    /**
+     * Remove emaile
+     *
+     * @param \AddressBoxBundle\Entity\Email $emaile
+     */
+    public function removeEmaile(\AddressBoxBundle\Entity\Email $emaile)
+    {
+        $this->emaile->removeElement($emaile);
+    }
+
+    /**
+     * Get emaile
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEmaile()
+    {
+        return $this->emaile;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->telefony = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->emaile = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    public function getImieNazwisko()
+    {
+        return sprintf("%s %s", $this->getImie(), $this->getNazwisko());
+    }
+
+}

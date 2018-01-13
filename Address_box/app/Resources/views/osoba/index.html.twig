@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Osobas list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Imie</th>
+                <th>Nazwisko</th>
+                <th>Opis</th>
+                <th>Actions</th>
+                <th>Telephone</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for osoba in osobas %}
+            <tr>
+                <td><a href="{{ path('osoba_show', { 'id': osoba.id }) }}">{{ osoba.id }}</a></td>
+                <td>{{ osoba.imie }}</td>
+                <td>{{ osoba.nazwisko }}</td>
+                <td>{{ osoba.opis }}</td>                
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('osoba_show', { 'id': osoba.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('osoba_edit', { 'id': osoba.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('osoba_new') }}">Create a new osoba</a>
+        </li>
+    </ul>
+{% endblock %}

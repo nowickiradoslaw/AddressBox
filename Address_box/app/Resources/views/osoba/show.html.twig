@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Osoba</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ osoba.id }}</td>
+            </tr>
+            <tr>
+                <th>Imie</th>
+                <td>{{ osoba.imie }}</td>
+            </tr>
+            <tr>
+                <th>Nazwisko</th>
+                <td>{{ osoba.nazwisko }}</td>
+            </tr>
+            <tr>
+                <th>Opis</th>
+                <td>{{ osoba.opis }}</td>
+            </tr>
+            <tr>
+                <th>Adres</th>
+                <td>{{ osoba.adres.fullAddress }}</td>
+            </tr>
+            
+            {% for telefon in osoba.telefony %}
+            {{ include('osoba/show_telefon.html.twig', {'telefon': telefon})}}
+            {% endfor %}
+            
+                
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('osoba_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('osoba_edit', { 'id': osoba.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
